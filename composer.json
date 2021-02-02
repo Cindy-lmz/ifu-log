@@ -1,17 +1,26 @@
 {
   "name": "ifu/helper",
-  "version": "0.0.1",
   "autoload": {
     "psr-4": {"ifu\\helper\\": "src"}
   },
+  "license": "MIT",
+  "homepage": "https://github.com/Cindy-lmz/ifu-log.git",
   "description": "ifu helper",
-  "license": "Apache-2.0",
   "authors": [
     {
       "name": "cindy",
       "email": "cindyli@topichina.com.cn"
     }
   ],
+  "keywords": [
+    "ifu"
+  ],
   "require": {
+    "php": ">=7.3"
+  },
+  "autoload": {
+    "classmap": [
+      "Log.php"
+    ]
   }
 }
