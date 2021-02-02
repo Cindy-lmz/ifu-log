@@ -1,0 +1,17 @@
+{
+  "name": "ifu/helper",
+  "version": "0.0.1",
+  "autoload": {
+    "psr-4": {"ifu\\helper\\": "src"}
+  },
+  "description": "ifu helper",
+  "license": "Apache-2.0",
+  "authors": [
+    {
+      "name": "cindy",
+      "email": "cindyli@topichina.com.cn"
+    }
+  ],
+  "require": {
+  }
+}
