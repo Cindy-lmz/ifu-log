@@ -16,7 +16,7 @@
     "ifu"
   ],
   "require": {
-    "php": ">=7.3"
+    "php": ">=5.3"
   },
   "autoload": {
     "classmap": [
