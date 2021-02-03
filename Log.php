@@ -116,7 +116,7 @@ class Log
         $client = new \Aliyun_Log_Client(config('log.aliyun_log_endpoint'), config('log.aliyun_log_access_key_id'), config('log.aliyun_log_access_key_secret'));
         $req = new \Aliyun_Log_Models_PutLogsRequest(config('log.aliyun_log_project'), config('log.aliyun_log_logstore'), config('log.aliyun_log_topic'), config('log.aliyun_log_source'), $message);
         $client->putLogs($req);
-        var_dump($req);exit();
+        // var_dump($req);exit();
         return true;
     }
 }
