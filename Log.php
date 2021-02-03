@@ -68,7 +68,41 @@ class Log
 
         return true;
     }
-
+    /**
+     * 日志写入接口
+     * @access public
+     * @param array $log 日志信息
+     * @return bool
+     */
+    public function apisave(array $log): bool
+    {
+        $info = [];
+        // 日志信息封装
+        $time = time();
+        $message = [];
+        foreach ($val as $msg) {
+            if (!is_string($msg)) {
+                $msg = var_export($msg, true);
+            }
+            $logItem = new \Aliyun_Log_Models_LogItem();
+            $logItem->setTime($time);
+            $contents =[
+                'level' => $msg['level'], 
+                'apiUrl' => $msg['apiUrl'], 
+                'urlData' => $msg['urlData'], 
+                'curl_error' => $msg['curl_error'], 
+                'differenct_time' => $msg['differenct_time'], 
+                'response' => $msg['response']
+            ];
+            $logItem->setContents($contents);
+            $message[] = $logItem;
+        }
+        $info = $message;
+        if ($info) {
+            return $this->write($info);
+        }
+        return true;
+    }
     /**
      * 日志写入
      * @access protected
