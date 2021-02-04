@@ -80,7 +80,7 @@ class Log
         // 日志信息封装
         $time = time();
         $message = [];
-        foreach ($val as $msg) {
+        foreach ($log as $msg) {
             if (!is_string($msg)) {
                 $msg = var_export($msg, true);
             }
