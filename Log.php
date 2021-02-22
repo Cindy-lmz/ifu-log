@@ -74,34 +74,22 @@ class Log
      * @param array $log 日志信息
      * @return bool
      */
-    public function apisave(array $log): bool
+    public function apisave(array $log, $topic = ''): bool
     {
         $info = [];
         // 日志信息封装
         $time = time();
-        $message = [];
-        foreach ($log as &$msg) {
-            if (!is_string($msg)) {
-                $msg = var_export($msg, true);
-            }
-            $logItem = new \Aliyun_Log_Models_LogItem();
-            $logItem->setTime($time);
-            $runtime = (number_format(microtime(true), 8, '.', '') - App::getBeginTime()) ?: 0.00000001;
-            $reqs = number_format(1 / number_format($runtime, 8), 2);
-            $contents =[
-                'level' => $log['level'], 
-                'apiUrl' => $log['apiUrl'], 
-                'urlData' => $log['urlData'], 
-                'curl_error' => $log['curl_error'], 
-                'differenct_time' =>  number_format($runtime, 6),
-                'create_at' => date('Y-m-d H:i:s')
-            ];
-            $logItem->setContents($contents);
-            $message[] = $logItem;
-        }
+        $logItem = new \Aliyun_Log_Models_LogItem();
+        $logItem->setTime($time);
+        $runtime = (number_format(microtime(true), 8, '.', '') - App::getBeginTime()) ?: 0.00000001;
+        $reqs = number_format(1 / number_format($runtime, 8), 2);
+        $log['differenct_time'] = number_format($runtime, 6);
+        $log['create_at'] = date('Y-m-d H:i:s');
+        $logItem->setContents($log);
+        $message[0] = $logItem;
         $info = $message;
         if ($info) {
-            return $this->write($info);
+            return $this->write($info,$topic);
         }
         return true;
     }
@@ -111,12 +99,12 @@ class Log
      * @param array  $message     日志信息
      * @return bool
      */
-    protected function write(array $message): bool
+    protected function write(array $message, $topic = ''): bool
     {
+        empty($topic) && $topic = config('log.aliyun_log_topic');
         $client = new \Aliyun_Log_Client(config('log.aliyun_log_endpoint'), config('log.aliyun_log_access_key_id'), config('log.aliyun_log_access_key_secret'));
-        $req = new \Aliyun_Log_Models_PutLogsRequest(config('log.aliyun_log_project'), config('log.aliyun_log_logstore'), config('log.aliyun_log_topic'), config('log.aliyun_log_source'), $message);
+        $req = new \Aliyun_Log_Models_PutLogsRequest(config('log.aliyun_log_project'), config('log.aliyun_log_logstore'), $topic, config('log.aliyun_log_source'), $message);
         $client->putLogs($req);
-        // var_dump($req);exit();
         return true;
     }
 }
