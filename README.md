@@ -8,7 +8,7 @@
 ThinkPHP 6 阿里云日志服务日志驱动
 ```
 
-## 配置
+#  配置
 config/log.php
 ```php
 // 默认日志记录通道
