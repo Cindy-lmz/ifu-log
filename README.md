@@ -70,7 +70,6 @@ config/log.php
 
 $this->log = new Log;
 $apidata['level']           =   2;
-$apidata['apiUrl']          =   'haigongPYJ';
 /**
 * $apidata 数组key和value都可以自定义;
 **/
